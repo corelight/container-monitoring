@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: example
+  name: example
+spec:
+  selector:
+    matchLabels:
+      run: example
+  template:
+    metadata:
+      labels:
+        run: example
+    spec:
+      containers:
+      - image: your-existing-container
+        name: example
+        ...
+      - image: vxlan
+        imagePullPolicy: Always
+        name: vxlan
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        env:
+        - name: VNI
+          value: "0"
+        - name: INTERFACE
+          value: eth0
+        - name: SENSOR
+          value: sensor
